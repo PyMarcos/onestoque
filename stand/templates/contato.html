@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block login %}
+        <a href="/logout/">Logout</a>
+{% endblock %}
+{% block content %}
+        <h3>Welcome {{user}}</h3>
+        <ul>
+            {% for perm in user.permissions %}
+            <li>{{perm}}</li>
+            {% endfor %}
+        </ul>
+{% endblock %}

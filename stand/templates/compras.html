@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block login %}
+        <a href="/logout/">Logout</a>
+{% endblock %}
+{% block content %}
+        <ul>
+            <ol>
+            <li><h3>Nome</h3></li>
+            <li><h3>Valor</h3></li>
+            <li><h3>Quantidade</h3></li>
+            </ol>
+        {% for c in compras %}
+            <ol>
+            <li>{{c.produto}}</li>
+            <li>{{c.valor}}</li>
+            <li>{{c.qtd}}</li>
+            </ol>
+        {% empty %}
+            <p>0 compras cadastradas</p>
+        {% endfor %}
+        </ul>
+{% endblock %}

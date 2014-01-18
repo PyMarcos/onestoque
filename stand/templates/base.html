@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="/media/css/styles.css" rel="stylesheet" type="text/css">
+    <script src="/media/scripts/jquery.js"></script>
+    <script src="/media/scripts/scripts.js"></script>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+<div id="page">
+    <header>
+        {% block login %}
+        <a id="login-button" href="/login/">LOGIN</a>
+        {% endblock %}
+        <h1>Header</h1>
+        <p>
+            First App
+        </p>
+        <hr>
+    </header>
+    <nav>
+        <section>
+        <h2>Cadastros</h2>
+            <a href="/novo-produto/">Novo Produto</a>
+            <a href="/novo-dep/">Novo Departamento</a>
+            <a href="/compra/">Lançar Compra</a>
+            <a href="/venda/">Lançar Venda</a>
+        </section>
+        <section>
+            <header>
+                <h2>Consultas</h2>
+            </header>
+            <a href="/consultas/produtos/">Produtos</a>
+            <a href="/consultas/departamentos/">Departamentos</a>
+            <a href="/consultas/compras/">Compras</a>
+            <a href="/consultas/venda/">Vendas</a>
+        </section>
+        <section>
+            <header>
+                <h2>Outros</h2>
+            </header>
+            <a href="/email/">Email</a>
+            <a href="/contato/">Contato</a>
+        </section>
+    </nav>
+    <section id="content">
+    {% block content %}
+            <p>Content</p>
+    {% endblock %}
+    </section>
+
+    {% block footer %}
+    <footer>
+        <hr>
+        <h1>Footer</h1>
+    </footer>
+    {% endblock %}
+</div>
+</body>
+</html>
