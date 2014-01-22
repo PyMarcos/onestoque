@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 ROOTDIR = os.path.realpath(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
@@ -35,9 +35,7 @@ TEMPLATE_LOADER = (
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'stock',
     'app',
 )
 
@@ -68,14 +67,14 @@ WSGI_APPLICATION = 'stand.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(ROOTDIR, 'db.sqlite3'),
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 
@@ -89,6 +88,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+STATIC_ROOT = os.path.join(ROOTDIR, 'static')
+
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
@@ -97,14 +98,25 @@ MEDIA_ROOT = os.path.join(ROOTDIR, 'media')
 
 ADMIN_MEDIA_PREFIX = 'admin_media'
 
+STATICFILES_DIRS = (
+    ('css', os.path.join(STATIC_ROOT, 'css')),
+    ('scripts', os.path.join(STATIC_ROOT, 'scripts')),
+)
+
+
+#login/logout settings
 LOGIN_URL = '/login/'
 
 LOGOUT_URL = '/logout/'
 
 LOGIN_REDIRECT_URL = '/'
 
+
+#sessions settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+
+#Email settings
 DEFAULT_FROM_EMAIL = 'kbca.marcos.sjc@gmail.com'
 
 EMAIL_HOST = 'smtp.gmail.com'

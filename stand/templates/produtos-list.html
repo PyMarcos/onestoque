@@ -3,9 +3,7 @@
         <a href="/logout/">Logout</a>
 {% endblock %}
 {% block content %}
-        {% for p in produtos %}
-            <h3>{{p.nome}}</h3>
-        {% empty %}
-            <h3>Nenhum produto cadastrado neste departamento</h3>
+        {% for produto in produtos_list %}
+        <p>{{produto}}</p>
         {% endfor %}
 {% endblock %}

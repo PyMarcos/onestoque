@@ -1,25 +1,28 @@
-from django.db import models
+from time import strftime
+from django.db.models import Model
+from django.db.models import BooleanField
+from django.db.models import CharField
+from django.db.models import IntegerField
+from django.db.models import ForeignKey
+from django.db.models import DecimalField
+from django.db.models import DateTimeField
+
+
 from django.contrib.auth.models import User
 from django.contrib import admin
 
+
 # Create your models here.
 
-class Produto(models.Model):
-    def __str__(self):
-        return self.nome
-
+class BaseModel(Model):
+    is_active = BooleanField()
     class Meta:
-        pass
+        app_label = 'app'
 
-    class Admin(admin.ModelAdmin):
-        list_display = ('nome', 'quantidade', 'departamentos')
+class Departamento(Model):
+    nome = CharField(max_length=100)
 
-    nome = models.CharField(max_length=100)
-    quantidade = models.IntegerField()
-    departamentos = models.ForeignKey('Departamento')
-
-class Departamento(models.Model):
-    def __str__(self):
+    def __unicode__(self):
         return self.nome
 
     class Meta:
@@ -28,28 +31,46 @@ class Departamento(models.Model):
     class Admin(admin.ModelAdmin):
         list_display = ('nome',)
 
-    nome = models.CharField(max_length=100)
+class Produto(Model):
+    nome = CharField(max_length=100)
+    quantidade = IntegerField()
+    departamentos = ForeignKey('Departamento')
 
-
-class Compra(models.Model):
-    def __str__(self):
-        return self.usuario
+    def __unicode__(self):
+        return self.nome
 
     class Meta:
         pass
 
     class Admin(admin.ModelAdmin):
+        list_display = ('nome', 'quantidade', 'departamentos')
+
+class Compra(Model):
+    usuario = ForeignKey(User)
+    produto = ForeignKey(Produto)
+    valor = DecimalField(decimal_places=2, max_digits=10)
+    qtd = IntegerField()
+    data = DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return u'{} - {}'.format(self.usuario, self.data.isoformat())
+
+    class Meta:
+        verbose_name = 'compra'
+
+    class Admin(admin.ModelAdmin):
         list_display = ('usuario', 'produto', 'valor', 'qtd')
 
-    usuario = models.ForeignKey(User, related_name='user_compras')
-    produto = models.ForeignKey(Produto, related_name='pr_compras')
-    valor = models.FloatField()
-    qtd = models.IntegerField()
+class Venda(Model):
+    usuario = ForeignKey(User)
+    produto = ForeignKey(Produto)
+    valor = DecimalField(decimal_places=2, max_digits=10)
+    qtd = IntegerField()
+    data = DateTimeField(auto_now=True)
 
-class Venda(models.Model):
-    class Meta:
-        pass
+    def __unicode__(self):
+        return self.usuario
 
-admin.site.register(Compra, Compra.Admin)
+admin.site.register(Compra)
 admin.site.register(Produto, Produto.Admin)
 admin.site.register(Departamento, Departamento.Admin)
