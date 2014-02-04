@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block login %}
-        <a href="/logout/">Logout</a>
-{% endblock %}
-{% block content %}
-        {% for produto in produtos_list %}
-        <p>{{produto}}</p>
-        {% endfor %}
-{% endblock %}

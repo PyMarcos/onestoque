@@ -1,5 +1,6 @@
 # -*- coding:utf8 -*-
 from django.db.models import Model
+from django.db.models import ManyToManyField
 from django.db.models import CharField
 from django.db.models import BooleanField
 from django.db.models import TextField
@@ -20,13 +21,30 @@ class StockBaseModel(Model):
 
 class Product(StockBaseModel):
     name = CharField(max_length=100, verbose_name='nome')
-    quantity = IntegerField()
+    quantity = IntegerField(verbose_name='quantidade')
     price = DecimalField(max_digits=100, decimal_places=3, verbose_name='preço')
-    description = TextField()
+    description = TextField(verbose_name='decrição')
+    request_point = IntegerField(verbose_name='ponto de pedido')
 
     class Meta(StockBaseModel.Meta):
         verbose_name = 'produto'
 
+class Feedstock(Product):
+    class Meta(StockBaseModel.Meta):
+        proxy = True
+        verbose_name = 'matéria-prima'
+
+    def __unicode__(self):
+        return self.name
+
+class FinishedProduct(Product):
+    feedstocks = ManyToManyField(Feedstock, verbose_name='matéria-prima')
+
+    class Meta(StockBaseModel.Meta):
+        verbose_name = 'produto acabado'
+
+    def __unicode__(self):
+        return self.name
 
 class Partner(StockBaseModel):
     name = CharField(max_length=100, verbose_name='nome')
@@ -39,12 +57,18 @@ class Provider(Partner):
         verbose_name = 'fornecedor'
         verbose_name_plural = 'fornecedores'
 
+    def __unicode__(self):
+        return self.name
+
 class Customer(Partner):
     cellphone = CharField(max_length=25, verbose_name='celular')
     CPF = CharField(max_length=20, verbose_name='CPF')
 
     class Meta(StockBaseModel.Meta):
         verbose_name = 'cliente'
+
+    def __unicode__(self):
+        return self.name
 
 class Address(StockBaseModel):
     street = CharField(max_length=100, verbose_name='rua')
@@ -57,6 +81,9 @@ class Address(StockBaseModel):
 
     class Meta(StockBaseModel.Meta):
         verbose_name = 'endereço'
+
+    def __unicode__(self):
+        return u'{}, {}'.format(self.street, self.number)
 
 class Transaction(StockBaseModel):
     user = ForeignKey(User, verbose_name='usuário')
@@ -71,6 +98,9 @@ class Transaction(StockBaseModel):
         verbose_name = 'transação'
         verbose_name_plural = 'transações'
 
+    def __unicode__(self):
+        return u'{}-{}'.format(self.product, self.date)
+
 
 class Sale(Transaction):
     customer = ForeignKey(Customer, verbose_name='cliente')
@@ -78,8 +108,14 @@ class Sale(Transaction):
     class Meta(StockBaseModel.Meta):
         verbose_name = 'venda'
 
+    def __unicode__(self):
+        return u'{}-{}'.format(self.product, self.date)
+
 class Purchase(Transaction):
     provider = ForeignKey(Provider, verbose_name='fornecedor')
 
     class Meta(StockBaseModel.Meta):
         verbose_name = 'compra'
+
+    def __unicode__(self):
+        return u'{}-{}'.format(self.product, self.date)

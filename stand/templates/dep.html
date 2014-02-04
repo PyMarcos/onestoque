@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block login %}
-        <a href="/logout/">Logout</a>
-{% endblock %}
-{% block content %}
-        {% for dept in depts %}
-            <p><a href="/consultas/departamentos/{{dept.nome}}/">{{dept.nome}}</a></p>
-        {% endfor %}
-{% endblock %}

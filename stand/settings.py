@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'stock',
-    'app',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,7 +98,7 @@ MEDIA_ROOT = os.path.join(ROOTDIR, 'media')
 ADMIN_MEDIA_PREFIX = 'admin_media'
 
 STATICFILES_DIRS = (
-    ('css', os.path.join(STATIC_ROOT, 'css')),
+    ('dist', os.path.join(STATIC_ROOT, 'dist')),
     ('scripts', os.path.join(STATIC_ROOT, 'scripts')),
 )
 

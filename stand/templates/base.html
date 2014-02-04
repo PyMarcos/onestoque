@@ -2,64 +2,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link href="{% static 'css/styles.css'%}" rel="stylesheet" type="text/css">
-    <script src="{% static 'scripts/jquery.js'%}"></script>
-    <script src="{% static 'scripts/scripts.js'%}"></script>
-    <title>
-        {% block title %}
-        {% endblock %}
-    </title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title> OnStock.com | O Seu gerenciador de estoque online</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/dist/examples/starter-template.css">
+
+    <script type='text/javascript' src="/static/dist/js/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript'>//<![CDATA[
+window.onload=function(){
+
+}//]]>  
+
+</script>
+
+
 </head>
 <body>
-<div id="page">
-    <header>
-        {% block login %}
-            <a id="login-button" href="/login/">LOGIN</a>
-        {% endblock %}
-        <h1>Header</h1>
-        <p>
-            First App
-        </p>
-        <hr>
-    </header>
-    <nav>
-        <section>
-        <h2>Cadastros</h2>
-            <a href="/novo_departamento/">Novo Departamento</a>
-            <a href="/novo_produto/">Novo Produto</a>
-            <a href="/nova_compra/">Lançar Compra</a>
-            <a href="/nova_venda/">Lançar Venda</a>
-        </section>
-        <section>
-            <header>
-                <h2>Consultas</h2>
-            </header>
-            <a href="/produtos/">Produtos</a>
-            <a href="/departamentos/">Departamentos</a>
-            <a href="/compras/">Compras</a>
-            <a href="/vendas/">Vendas</a>
-        </section>
-        <section>
-            <header>
-                <h2>Outros</h2>
-            </header>
-            <a href="/email/">Email</a>
-            <a href="/contato/">Contato</a>
-        </section>
-    </nav>
-    <section id="content">
-    {% block content %}
-            <p>Content</p>
-    {% endblock %}
-    </section>
+<div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
 
-    {% block footer %}
-    <footer>
-        <hr>
-        <h1>Footer</h1>
-    </footer>
-    {% endblock %}
-</div>
+<div class="container">
+
+    <div class="starter-template">
+        <header class="jumbotron">
+            <h1>Bem vindo ao OnStock.com</h1>
+            <p>Oferecemos varios tipos de serviços para você ajudar o seu empreendimento.</p>
+            <a class="btn btn-lg btn-info" href="#">Conheça nossos serviços</a>
+        </header>
+    </div>
+
+</div><!-- /.container -->
+
 </body>
+
+
 </html>
+

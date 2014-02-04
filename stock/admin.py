@@ -10,14 +10,15 @@ class AddressInline(TabularInline):
     model = Address
     extra = 0
 
+class FedstockInline(TabularInline):
+    model = Feedstock
+    extra = 0
+
 class ProviderAdmin(ModelAdmin):
     inlines = (AddressInline,)
 
 class CustomerAdmin(ModelAdmin):
     inlines = (AddressInline,)
-
-class ProductAdmin(ModelAdmin):
-    search_fields = ['name']
 
 class PurchaseAdmin(ModelAdmin):
     search_fields = ['date']
@@ -25,7 +26,11 @@ class PurchaseAdmin(ModelAdmin):
 class SaleAdmin(ModelAdmin):
     search_fields = ['product']
 
-admin.site.register(Product, ProductAdmin)
+class FinishedProductAdmin(ModelAdmin):
+    filter_vertical = ('feedstocks', )
+
+admin.site.register(FinishedProduct)
+admin.site.register(Feedstock)
 admin.site.register(Provider, ProviderAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Purchase, PurchaseAdmin)

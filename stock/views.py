@@ -1,6 +1,7 @@
-from django.shortcuts import render
+# -*- coding:utf8 -*-
+from django.shortcuts import render_to_response
 
 # Create your views here.
 
 def index(request):
-    pass
+    return render_to_response("base.html")
