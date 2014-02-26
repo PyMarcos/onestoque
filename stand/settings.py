@@ -13,8 +13,8 @@ import os
 
 ROOTDIR = os.path.realpath(os.path.dirname(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+FACEBOOK_APP_ID = '201558343386433'
+FACEBOOK_APP_SECRET = 'efcd15764a3996bdc23d790672bcc6ba'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '--p2vltz!l9k1%i!#lx$2)=q7tn$fvg1&881##+8q15#7y=1b_'
@@ -43,8 +43,25 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_openid_auth',
     'stock',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'django_openid_auth.auth.OpenIDBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+OPENID_SSO_SERVER_URL = 'https://login.launchpad.net/'
+
+OPENID_CREATE_USERS = True
+OPENID_UPDATE_DETAILS_FROM_SREG = True
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/login/'
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -67,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(ROOTDIR, 'db.sqlite3'),
-    }
+        }
 }
 
 # Internationalization
@@ -104,11 +121,12 @@ STATICFILES_DIRS = (
 
 
 #login/logout settings
-LOGIN_URL = '/login/'
+# LOGIN_URL = '/login/'
 
-LOGOUT_URL = '/logout/'
+# LOGOUT_URL = '/logout/'
 
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'
+
 
 
 #sessions settings

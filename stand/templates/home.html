@@ -4,7 +4,7 @@
     <header class="jumbotron">
         <h1>Bem vindo ao OnStock.com</h1>
         <p>Oferecemos vários tipos de serviços para você ajudar o seu empreendimento.</p>
-        <a class="btn btn-lg btn-info" href="#">Conheça nossos serviços</a>
+        <button class="btn btn-lg btn-info" onclick="">Conheça nossos serviços</a>
     </header>
     <section>
         <div class="row">
@@ -33,12 +33,55 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Panel title</h3>
                     </div>
-                    <div class="panel-body">
+                    <div id='ajax' class="panel-body">
                         Panel content
                     </div>
+                    <button id="back" onclick="back()">Back</button>
+                    <button id="next" onclick="next()">Next</button>
                 </div>
             </div><!-- /.col-sm-4 -->
         </div>
     </section>
 </div>
+{% endblock %}
+{% block javascript %}
+<script>
+window.scrollback = {
+  streams: ["ihcProject"]  // Change this!
+};
+
+/* DON'T EDIT: */(function(d,s,h,e){e=d.createElement(s);
+e.src=h+'/client.min.js';e.async=1;scrollback.host=h;
+d.getElementsByTagName(s)[0].parentNode.appendChild(e);}
+(document,'script',location.protocol+'//scrollback.io'));
+</script>
+<script>
+$(document).ready(function(){
+    var i = 0;
+    var _data;
+    var ajax = $('#ajax');
+
+    $.ajax({
+        type: 'GET',
+        url: '/ajax/',
+        dataType: 'json',
+        success: function(data){
+            _data = data;
+             ajax.html(_data[0].fields.name);
+        }
+    });
+
+    function back(){
+        if(_data.length > 0 && i > 0){
+            document.getElementById('back').innerHTML = _data[--i].fields.name;
+        }
+    }
+
+    function next(){
+        if(i < _data.length){
+            document.getElementById('next') = _data[++i].fields.name;
+        }
+    }
+});
+</script>
 {% endblock %}
